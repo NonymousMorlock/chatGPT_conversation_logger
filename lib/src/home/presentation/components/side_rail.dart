@@ -2,11 +2,17 @@ import 'package:conversation_log/src/home/presentation/app/bloc/conversation_blo
 import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:provider/provider.dart';
 
-class SideRail extends StatelessWidget {
+class SideRail extends StatefulWidget {
   const SideRail({super.key});
 
+  @override
+  State<SideRail> createState() => _SideRailState();
+}
+
+class _SideRailState extends State<SideRail> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ConversationBloc, ConversationState>(
@@ -43,10 +49,29 @@ class SideRail extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {
-                        context
-                            .read<HomeProvider>()
-                            .viewConversation(conversation);
+                      onTap: () async {
+                        if (provider.canSaveMessage) {
+                          final result =
+                              await FlutterPlatformAlert.showCustomAlert(
+                            windowTitle: 'Are you sure?',
+                            text: 'You have unsaved messages',
+                            positiveButtonTitle: 'Continue',
+                            negativeButtonTitle: 'Cancel',
+                          );
+                          if (result == CustomButton.positiveButton) {
+                            if (!mounted) return;
+                            context
+                                .read<HomeProvider>()
+                                .viewConversation(conversation);
+                          } else {
+                            return;
+                          }
+                        } else {
+                          if (!mounted) return;
+                          context
+                              .read<HomeProvider>()
+                              .viewConversation(conversation);
+                        }
                       },
                     ),
                   );
