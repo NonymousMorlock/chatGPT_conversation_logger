@@ -23,7 +23,7 @@ class _FABState extends State<FAB> {
             Future.delayed(
               const Duration(milliseconds: 500),
               () {
-                if(!mounted) return;
+                if (!mounted) return;
                 setState(() => extend = true);
               },
             );
@@ -32,7 +32,7 @@ class _FABState extends State<FAB> {
             Future.delayed(
               const Duration(milliseconds: 500),
               () {
-                if(!mounted) return;
+                if (!mounted) return;
                 setState(() => extend = false);
               },
             );

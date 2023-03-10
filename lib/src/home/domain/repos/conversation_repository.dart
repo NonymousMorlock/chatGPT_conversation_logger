@@ -7,4 +7,9 @@ abstract class ConversationRepository {
   FunctionalFuture<void> addConversation(Conversation conversation);
 
   FunctionalFuture<void> deleteConversation(String conversationId);
+
+  FunctionalFuture<void> editConversationTitle({
+    required String conversationId,
+    required String title,
+  });
 }

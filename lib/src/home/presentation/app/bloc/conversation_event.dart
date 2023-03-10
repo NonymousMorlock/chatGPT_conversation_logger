@@ -6,6 +6,7 @@ abstract class ConversationEvent extends Equatable {
 
 class GetConversationsEvent extends ConversationEvent {
   const GetConversationsEvent();
+
   @override
   List<Object> get props => [];
 }
@@ -26,4 +27,17 @@ class DeleteConversationEvent extends ConversationEvent {
 
   @override
   List<Object> get props => [conversationId];
+}
+
+class EditConversationTitleEvent extends ConversationEvent {
+  const EditConversationTitleEvent({
+    required this.conversationId,
+    required this.title,
+  });
+
+  final String conversationId;
+  final String title;
+
+  @override
+  List<Object> get props => [conversationId, title];
 }

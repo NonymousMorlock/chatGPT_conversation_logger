@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class Toolbar extends StatelessWidget {
   const Toolbar({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(

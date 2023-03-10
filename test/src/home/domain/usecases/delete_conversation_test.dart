@@ -21,9 +21,9 @@ void main() {
 
   test(
     'should call the [ConversationRepository]',
-        () async {
+    () async {
       when(() => repo.deleteConversation(any())).thenAnswer(
-            (_) async => const Right(null),
+        (_) async => const Right(null),
       );
 
       final result = await usecase(tConversation.id);

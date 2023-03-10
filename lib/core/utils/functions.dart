@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:flutter_window_close/flutter_window_close.dart';
-import 'package:window_manager/window_manager.dart';
 
 @Deprecated('Use the flutter_window_close package instead.')
 void windowEvent() {
@@ -69,4 +68,19 @@ void windowCloseEvent() {
     );
     return result == CustomButton.positiveButton;
   });
+}
+
+Future<bool> showPlatformDialog({
+  required String text,
+  String? windowTitle,
+  String? positiveButtonTitle,
+  String? negativeButtonTitle,
+}) async {
+  final result = await FlutterPlatformAlert.showCustomAlert(
+    windowTitle: windowTitle ?? 'Are you sure?',
+    text: text,
+    positiveButtonTitle: positiveButtonTitle ?? 'Continue',
+    negativeButtonTitle: negativeButtonTitle ?? 'Cancel',
+  );
+  return result == CustomButton.positiveButton;
 }

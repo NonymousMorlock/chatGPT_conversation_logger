@@ -6,6 +6,7 @@ import 'package:conversation_log/src/home/data/repos/conversation_repository_imp
 import 'package:conversation_log/src/home/domain/repos/conversation_repository.dart';
 import 'package:conversation_log/src/home/domain/usecases/add_conversation.dart';
 import 'package:conversation_log/src/home/domain/usecases/delete_conversation.dart';
+import 'package:conversation_log/src/home/domain/usecases/edit_conversation_title.dart';
 import 'package:conversation_log/src/home/domain/usecases/get_conversations.dart';
 import 'package:conversation_log/src/home/presentation/app/bloc/conversation_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -42,13 +43,15 @@ Future<void> init() async {
 }
 
 Future<void> conversationInit() async {
-  sl..registerFactory(
-    () => ConversationBloc(
-      getConversations: sl(),
-      addConversation: sl(),
-      deleteConversation: sl(),
-    ),
-  )
+  sl
+    ..registerFactory(
+      () => ConversationBloc(
+        getConversations: sl(),
+        addConversation: sl(),
+        deleteConversation: sl(),
+        editConversationTitle: sl(),
+      ),
+    )
     ..registerLazySingleton(
       () => GetConversations(sl()),
     )
@@ -58,6 +61,7 @@ Future<void> conversationInit() async {
     ..registerLazySingleton(
       () => DeleteConversation(sl()),
     )
+    ..registerLazySingleton(() => EditConversationTitle(sl()))
     ..registerLazySingleton<ConversationRepository>(
       ConversationRepositoryImplementation.new,
     );

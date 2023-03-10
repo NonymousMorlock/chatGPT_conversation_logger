@@ -7,10 +7,7 @@ final kNavigatorKey = GlobalKey<NavigatorState>();
 
 final kMenuButtons = [
   BarButton(
-    text: const Text(
-      'File',
-      style: TextStyle(color: Colors.white)
-    ),
+    text: const Text('File', style: TextStyle(color: Colors.white)),
     submenu: SubMenu(
       menuItems: [
         MenuButton(

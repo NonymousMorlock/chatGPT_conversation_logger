@@ -108,6 +108,26 @@ class ConversationRepositoryImplementation implements ConversationRepository {
     }
   }
 
+  @override
+  FunctionalFuture<void> editConversationTitle({
+    required String conversationId,
+    required String title,
+  }) async {
+    try {
+      final data = DataMap.from(jsonData);
+      final fileData = data[conversationId] as DataMap?;
+      if (fileData != null) {
+        (data[conversationId] as DataMap)['title'] = title;
+        (data[conversationId] as DataMap)['modifiedDate'] =
+            DateTime.now().toIso8601String();
+        await jsonFile.writeAsString(jsonEncode(data));
+      }
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString(), statusCode: 500));
+    }
+  }
+
   String _generateUniqueId() {
     final now = DateTime.now().millisecondsSinceEpoch;
     final rand = Random().nextInt(1000000);

@@ -34,13 +34,27 @@ class HomeProvider extends ChangeNotifier {
 
   String hint = 'Enter Title';
 
+  String? _editTitle;
+
+  String? get editTitle => _editTitle;
+
+  void setEditTitle(String conversationId) {
+    _editTitle = conversationId;
+    notifyListeners();
+  }
+
+  void resetEditTitle() {
+    _editTitle = null;
+    notifyListeners();
+  }
+
   bool get isEnteringTitle {
-    if(_controller == null) return false;
+    if (_controller == null) return false;
     return sender == null && _controller!.text.isNotEmpty && enterTitle;
   }
 
   bool get canSaveMessage {
-    if(_controller == null) return false;
+    if (_controller == null) return false;
     return sender != null && _controller!.text.isNotEmpty;
   }
 
@@ -112,7 +126,6 @@ class HomeProvider extends ChangeNotifier {
     _height = 387.870361328125;
     notifyListeners();
   }
-
 }
 
 enum Sender { ME, CHATBOT }
