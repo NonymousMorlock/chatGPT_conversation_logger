@@ -33,6 +33,7 @@ class App extends StatelessWidget {
               return MaterialApp(
                 navigatorKey: kNavigatorKey,
                 theme: ThemeData(
+                  scaffoldBackgroundColor: theme.backgroundColor,
                   appBarTheme: AppBarTheme(color: theme.appBarColor),
                   colorScheme: ColorScheme.fromSwatch(
                     accentColor: theme.accentColor,

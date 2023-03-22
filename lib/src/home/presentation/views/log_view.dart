@@ -1,8 +1,10 @@
+import 'package:conversation_log/core/common/theme/theme.dart';
 import 'package:conversation_log/src/home/presentation/app/bloc/conversation_bloc.dart';
 import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:conversation_log/src/home/presentation/components/resizable_text_field.dart';
 import 'package:conversation_log/src/home/presentation/components/tool_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class LogView extends StatefulWidget {
@@ -43,53 +45,57 @@ class _LogViewState extends State<LogView> {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (_, provider, __) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              const ResizableTextField(),
-              if (!provider.enterTitle) ...[
-                const SizedBox(height: 10),
-                const Toolbar(),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+        return BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, themeState) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  const ResizableTextField(),
+                  if (!provider.enterTitle) ...[
+                    const SizedBox(height: 10),
+                    const Toolbar(),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            backgroundColor: provider.sender == Sender.ME
+                                ? Colors.blue
+                                : themeState.inactiveButtonColour,
+                            minimumSize: const Size(70, 41),
+                          ),
+                          onPressed: () {
+                            provider.updateSender(Sender.ME);
+                          },
+                          child: const Text('Me'),
                         ),
-                        backgroundColor: provider.sender == Sender.ME
-                            ? Colors.blue
-                            : Colors.grey,
-                        minimumSize: const Size(70, 41),
-                      ),
-                      onPressed: () {
-                        provider.updateSender(Sender.ME);
-                      },
-                      child: const Text('Me'),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            backgroundColor: provider.sender == Sender.CHATBOT
+                                ? Colors.blue
+                                : themeState.inactiveButtonColour,
+                            minimumSize: const Size(70, 41),
+                          ),
+                          onPressed: () {
+                            provider.updateSender(Sender.CHATBOT);
+                          },
+                          child: const Text('ChatGPT'),
                         ),
-                        backgroundColor: provider.sender == Sender.CHATBOT
-                            ? Colors.blue
-                            : Colors.grey,
-                        minimumSize: const Size(70, 41),
-                      ),
-                      onPressed: () {
-                        provider.updateSender(Sender.CHATBOT);
-                      },
-                      child: const Text('ChatGPT'),
+                      ],
                     ),
-                  ],
-                ),
-              ]
-            ],
-          ),
+                  ]
+                ],
+              ),
+            );
+          },
         );
       },
     );

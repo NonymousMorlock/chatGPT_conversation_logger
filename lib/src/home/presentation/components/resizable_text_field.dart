@@ -1,5 +1,8 @@
+import 'package:conversation_log/core/common/theme/cubit/theme_cubit.dart';
+import 'package:conversation_log/core/common/theme/cubit/theme_cubit.dart';
 import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class ResizableTextField extends StatefulWidget {
@@ -22,17 +25,24 @@ class _ResizableTextFieldState extends State<ResizableTextField> {
           height: provider.height,
           child: Stack(
             children: [
-              TextField(
-                textAlignVertical: TextAlignVertical.top,
-                controller: provider.controller,
-                focusNode: provider.focus,
-                expands: true,
-                maxLines: null,
-                maxLength: TextField.noMaxLength,
-                decoration: InputDecoration(
-                  hintText: provider.hint,
-                  border: const OutlineInputBorder(),
-                ),
+              BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, state) {
+                  return TextField(
+                    textAlignVertical: TextAlignVertical.top,
+                    style: state is ThemeStateDark
+                        ? const TextStyle(color: Colors.white)
+                        : null,
+                    controller: provider.controller,
+                    focusNode: provider.focus,
+                    expands: true,
+                    maxLines: null,
+                    maxLength: TextField.noMaxLength,
+                    decoration: InputDecoration(
+                      hintText: provider.hint,
+                      border: const OutlineInputBorder(),
+                    ),
+                  );
+                },
               ),
               Positioned(
                 bottom: 20,
