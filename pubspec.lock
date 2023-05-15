@@ -329,10 +329,10 @@ packages:
     dependency: "direct main"
     description:
       name: markdown_toolbar
-      sha256: "2a6a775bb557b874c23fb7f284c8368393529f4ff3cad54b6d37f60ba29046e5"
+      sha256: "5f4e2548afe96cc2ccdad22da87d380e4726d2d3385ddbb7035aa94daf9a4d47"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.5.0"
   markdown_viewer:
     dependency: "direct main"
     description:
