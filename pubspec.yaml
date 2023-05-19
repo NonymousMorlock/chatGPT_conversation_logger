@@ -24,7 +24,7 @@ dependencies:
 #  markdown_editor_plus: ^0.2.13
   markdown_toolbar: ^0.3.2
   markdown_viewer: ^0.5.0
-  markdown_widget: ^2.0.0+1
+  markdown_widget: ^2.2.0
   menu_bar: ^0.4.0
   menubar:
     git:
