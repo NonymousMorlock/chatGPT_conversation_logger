@@ -1,3 +1,4 @@
+import 'package:conversation_log/core/common/features/search/presentation/views/search_view.dart';
 import 'package:conversation_log/core/utils/constants.dart';
 import 'package:conversation_log/src/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart' hide MenuBar;
@@ -24,7 +25,13 @@ PageRouteBuilder<dynamic> _pageBuilder(
         opacity: a,
         child: MenuBar(
           barButtons: kMenuButtons,
-          child: child,
+          child: Column(
+            children: [
+              const SearchView(),
+              const SizedBox(height: 10),
+              Expanded(child: child),
+            ],
+          ),
         ),
       );
     },

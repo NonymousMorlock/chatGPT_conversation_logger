@@ -76,7 +76,7 @@ class ConversationRepositoryImplementation implements ConversationRepository {
       final file = File('database/collection/$id.md');
       if (file.existsSync()) {
         await file.writeAsString(
-          '${conversation.message}\n',
+          '${conversation.message}\n\n',
           mode: FileMode.append,
         );
       } else {

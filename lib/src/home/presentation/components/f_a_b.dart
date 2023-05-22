@@ -76,7 +76,7 @@ class _FABState extends State<FAB> {
       context.read<ConversationBloc>().add(
             AddConversationEvent(
               ConversationModel.empty().copyWith(
-                message: '**$sender:** ${provider.controller!.text.trim()}',
+                message: '**$sender:** ${provider.controller!.text.trim()}\n',
                 title: provider.title.trim(),
               ),
             ),

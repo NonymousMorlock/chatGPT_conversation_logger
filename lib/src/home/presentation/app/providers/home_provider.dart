@@ -4,13 +4,28 @@ import 'package:conversation_log/src/home/domain/entities/conversation.dart';
 import 'package:flutter/widgets.dart';
 
 class HomeProvider extends ChangeNotifier {
+
+  HomeProvider() {
+    _searchController.addListener(() {
+      _search(_searchController.text);
+    });
+  }
   double _width = 895.5537109375;
   double _height = 387.870361328125;
 
   TextEditingController? _controller = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   FocusNode? _focus = FocusNode();
 
+  List<Conversation> _conversations = [];
+
+  List<Conversation> _searchResults = [];
+
+  List<Conversation> get conversations => _searchResults;
+
   TextEditingController? get controller => _controller;
+  TextEditingController get searchController => _searchController;
+
 
   FocusNode? get focus => _focus;
 
@@ -40,6 +55,36 @@ class HomeProvider extends ChangeNotifier {
 
   void setEditTitle(String conversationId) {
     _editTitle = conversationId;
+    notifyListeners();
+  }
+
+  void clearSearch() {
+    _searchController.clear();
+  }
+
+  set conversations(List<Conversation> conversations) {
+    _conversations = conversations;
+    _searchResults = conversations;
+    notifyListeners();
+  }
+
+  void _search(String query) {
+    if (query.isEmpty) {
+      _searchResults = _conversations;
+    } else {
+      _searchResults = _conversations
+          .where(
+            (conversation) =>
+                conversation.title
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                (conversation.message
+                        ?.toLowerCase()
+                        .contains(query.toLowerCase()) ??
+                    false),
+          )
+          .toList();
+    }
     notifyListeners();
   }
 

@@ -16,21 +16,27 @@ class SideRail extends StatefulWidget {
 class _SideRailState extends State<SideRail> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ConversationBloc, ConversationState>(
-      builder: (_, state) {
-        return BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, themeState) {
-            return Consumer<HomeProvider>(
-              builder: (_, provider, __) {
+    return Consumer<HomeProvider>(
+      builder: (_, provider, __) {
+        return BlocConsumer<ConversationBloc, ConversationState>(
+          listener: (_, state) {
+            if(state is ConversationsLoaded) {
+              provider.conversations = state.conversations;
+            }
+          },
+          builder: (_, state) {
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
                 return ColoredBox(
                   color: themeState.sideRailColour,
                   child: ListView.builder(
-                    itemCount: state is ConversationsLoaded
-                        ? state.conversations.length
-                        : 0,
+                    itemCount: provider.conversations.length,
                     itemBuilder: (context, index) {
-                      state as ConversationsLoaded;
-                      final conversation = state.conversations[index];
+                      final conversations = provider.conversations
+                        ..sort(
+                          (a, b) => b.modifiedDate.compareTo(a.modifiedDate),
+                        );
+                      final conversation = conversations[index];
                       return ColoredBox(
                         color: provider.currentConversation == conversation
                             ? themeState.selectedItemColour
@@ -137,9 +143,9 @@ class _SideRailState extends State<SideRail> {
                                     IconButton(
                                       onPressed: () async {
                                         if (await showPlatformDialog(
-                                          text:
-                                              'This will delete the conversation '
-                                              'and all its messages.',
+                                          text: 'This will delete the '
+                                              'conversation and all its '
+                                              'messages.',
                                           positiveButtonTitle: 'Delete',
                                         )) {
                                           if (!mounted) return;
