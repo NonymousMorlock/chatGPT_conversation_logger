@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,8 +10,8 @@ import 'package:conversation_log/core/utils/functions.dart';
 import 'package:conversation_log/core/utils/typedefs.dart';
 import 'package:conversation_log/src/home/data/models/exported_conversation_model.dart';
 import 'package:conversation_log/src/home/domain/entities/conversation.dart';
-import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 import 'package:conversation_log/src/home/domain/entities/exported_conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,9 +23,14 @@ class HomeProvider extends ChangeNotifier {
     _searchController.addListener(() {
       _search(_searchController.text);
     });
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      notifyListeners();
+    });
   }
 
   final SharedPreferences _prefs;
+
+  late Timer timer;
 
   ViewType _viewType = ViewType.EXPORTED;
 
@@ -119,7 +125,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> saveConversations() async {
-    if(_exportedConversations.isEmpty) {
+    if (_exportedConversations.isEmpty) {
       await showPlatformDialog(
         windowTitle: 'No conversation found',
         text: 'You have not imported any conversation yet.',
@@ -355,6 +361,14 @@ class HomeProvider extends ChangeNotifier {
     _width = 895.5537109375;
     _height = 387.870361328125;
     notifyListeners();
+  }
+  @override
+  void dispose() {
+    _controller?.dispose();
+    _focus?.dispose();
+    timer.cancel();
+    _searchController.dispose();
+    super.dispose();
   }
 }
 
