@@ -1,31 +1,64 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:conversation_log/core/extensions/date_extensions.dart';
+import 'package:conversation_log/core/utils/constants.dart';
+import 'package:conversation_log/core/utils/functions.dart';
+import 'package:conversation_log/core/utils/typedefs.dart';
+import 'package:conversation_log/src/home/data/models/exported_conversation_model.dart';
 import 'package:conversation_log/src/home/domain/entities/conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/exported_conversation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeProvider extends ChangeNotifier {
-
-  HomeProvider() {
+  HomeProvider(this._prefs) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _getConversations();
+    });
     _searchController.addListener(() {
       _search(_searchController.text);
     });
   }
+
+  final SharedPreferences _prefs;
+
+  ViewType _viewType = ViewType.EXPORTED;
+
+  ViewType get viewType => _viewType;
+
   double _width = 895.5537109375;
   double _height = 387.870361328125;
+
+  bool _initializing = true;
+
+  bool get initializing => _initializing;
 
   TextEditingController? _controller = TextEditingController();
   final TextEditingController _searchController = TextEditingController();
   FocusNode? _focus = FocusNode();
 
-  List<Conversation> _conversations = [];
+  List<UserFilledConversation> _conversations = [];
+  List<ExportedConversation> _exportedConversations = [];
 
-  List<Conversation> _searchResults = [];
+  List<UserFilledConversation> _searchResults = [];
+  List<ExportedConversation> _exportedSearchResults = [];
 
-  List<Conversation> get conversations => _searchResults;
+  List<UserFilledConversation> get conversations => _searchResults;
+
+  List<ExportedConversation> get exportedConversations =>
+      _exportedSearchResults;
 
   TextEditingController? get controller => _controller;
+
   TextEditingController get searchController => _searchController;
 
+  DateTime? _lastPickedDate;
+
+  DateTime? get lastPickedDate => _lastPickedDate;
 
   FocusNode? get focus => _focus;
 
@@ -62,7 +95,91 @@ class HomeProvider extends ChangeNotifier {
     _searchController.clear();
   }
 
-  set conversations(List<Conversation> conversations) {
+  set lastPickedDate(DateTime? date) {
+    if (_lastPickedDate != date) {
+      _lastPickedDate = date;
+      notifyListeners();
+    }
+  }
+
+  set viewType(ViewType type) {
+    if (type == ViewType.EXPORTED && _exportedConversations.isEmpty) {
+      showPlatformDialog(
+        windowTitle: 'No Conversation Found',
+        text: 'You have not imported any conversation yet.',
+        noNegativeButton: true,
+        positiveButtonTitle: 'Ok',
+      );
+      return;
+    }
+    if (_viewType != type) {
+      _viewType = type;
+      notifyListeners();
+    }
+  }
+
+  Future<void> saveConversations() async {
+    if(_exportedConversations.isEmpty) {
+      await showPlatformDialog(
+        windowTitle: 'No conversation found',
+        text: 'You have not imported any conversation yet.',
+        noNegativeButton: true,
+        positiveButtonTitle: 'Ok',
+      );
+      return;
+    }
+    await _prefs.setStringList(
+      kConversationStoreKey,
+      _exportedConversations
+          .map((e) => (e as ExportedConversationModel).toJson())
+          .toList(),
+    );
+    await showPlatformDialog(
+      windowTitle: 'Saved',
+      text: 'Your conversations have been saved successfully.',
+      noNegativeButton: true,
+      positiveButtonTitle: 'Ok',
+    );
+  }
+
+  Future<void> _getConversations() async {
+    final conversations = _prefs.getStringList(kConversationStoreKey);
+    if (conversations != null) {
+      _exportedConversations =
+          conversations.map(ExportedConversationModel.fromJson).toList();
+      _exportedSearchResults = _exportedConversations;
+      _initializing = false;
+      notifyListeners();
+    } else {
+      await _initFromStorageIfExists('Initializing...');
+      if (_exportedConversations.isEmpty) _viewType = ViewType.USER_FILLED;
+    }
+  }
+
+  Future<void> _initFromStorageIfExists(String? message) async {
+    // root/database/storage/conversations.json
+    final file =
+        File('${Directory.current.path}/database/storage/conversations.json');
+    setConversationsFromFile(file);
+  }
+
+  void setConversationsFromFile(File file) {
+    _initializing = true;
+    notifyListeners();
+    if (file.existsSync()) {
+      final data = List<DataMap>.from(
+        jsonDecode(file.readAsStringSync()) as List<dynamic>,
+      );
+      _exportedConversations =
+          data.map(ExportedConversationModel.fromMap).toList();
+      _exportedSearchResults = _exportedConversations;
+    }
+    _initializing = false;
+    _viewType = ViewType.EXPORTED;
+    notifyListeners();
+  }
+
+  set conversations(List<UserFilledConversation> conversations) {
     _conversations = conversations;
     _searchResults = conversations;
     notifyListeners();
@@ -71,21 +188,83 @@ class HomeProvider extends ChangeNotifier {
   void _search(String query) {
     if (query.isEmpty) {
       _searchResults = _conversations;
+      _exportedSearchResults = _exportedConversations;
+    } else {
+      if (_viewType == ViewType.USER_FILLED) {
+        _searchResults = _conversations
+            .where(
+              (conversation) =>
+                  conversation.title
+                      .toLowerCase()
+                      .contains(query.toLowerCase()) ||
+                  (conversation.message
+                          ?.toLowerCase()
+                          .contains(query.toLowerCase()) ??
+                      false),
+            )
+            .toList();
+      } else {
+        _exportedSearchResults = _exportedConversations
+            .where(
+              (conversation) =>
+                  conversation.title
+                      .toLowerCase()
+                      .contains(query.toLowerCase()) ||
+                  (conversation.messages
+                      .map(
+                        (message) => message.content
+                            .toLowerCase()
+                            .contains(query.toLowerCase()),
+                      )
+                      .contains(true)),
+            )
+            .toList();
+      }
+    }
+    notifyListeners();
+  }
+
+  bool searchByDate(DateTime date) {
+    _lastPickedDate = date;
+    _searchController.text = date.plainDate;
+    if (viewType == ViewType.EXPORTED) {
+      _exportedSearchResults = _exportedConversations
+          .where(
+            (conversation) =>
+                (conversation.timeCreated.day == date.day ||
+                    conversation.lastUpdateTime.day == date.day) &&
+                (conversation.timeCreated.month == date.month ||
+                    conversation.lastUpdateTime.month == date.month) &&
+                (conversation.timeCreated.year == date.year ||
+                    conversation.lastUpdateTime.year == date.year),
+          )
+          .toList();
+      if (_exportedSearchResults.isEmpty) {
+        _exportedSearchResults = _exportedConversations;
+        notifyListeners();
+        return false;
+      }
     } else {
       _searchResults = _conversations
           .where(
             (conversation) =>
-                conversation.title
-                    .toLowerCase()
-                    .contains(query.toLowerCase()) ||
-                (conversation.message
-                        ?.toLowerCase()
-                        .contains(query.toLowerCase()) ??
-                    false),
+                (conversation.createdDate.day == date.day ||
+                    conversation.modifiedDate.day == date.day) &&
+                (conversation.createdDate.month == date.month ||
+                    conversation.modifiedDate.month == date.month) &&
+                (conversation.createdDate.year == date.year ||
+                    conversation.modifiedDate.year == date.year),
           )
           .toList();
+
+      if (_searchResults.isEmpty) {
+        _searchResults = _conversations;
+        notifyListeners();
+        return false;
+      }
     }
     notifyListeners();
+    return true;
   }
 
   void resetEditTitle() {
@@ -100,7 +279,13 @@ class HomeProvider extends ChangeNotifier {
 
   bool get canSaveMessage {
     if (_controller == null) return false;
-    return sender != null && _controller!.text.isNotEmpty;
+    return _sender != null && _controller!.text.isNotEmpty;
+  }
+
+  void resetInputs() {
+    _controller?.clear();
+    _sender = null;
+    notifyListeners();
   }
 
   void initializeDisposables() {
@@ -174,3 +359,5 @@ class HomeProvider extends ChangeNotifier {
 }
 
 enum Sender { ME, CHATBOT }
+
+enum ViewType { EXPORTED, USER_FILLED }

@@ -9,6 +9,7 @@ abstract class ThemeState {
   Color get inactiveButtonColour;
   Color get selectedItemColour;
   MaterialColor get primarySwatch;
+  String get loadingFiles;
 }
 
 class ThemeStateDark implements ThemeState {
@@ -36,6 +37,9 @@ class ThemeStateDark implements ThemeState {
 
   @override
   MaterialColor get primarySwatch => Colors.blue;
+
+  @override
+  String get loadingFiles => Res.loadingFilesDark;
 }
 
 class ThemeStateLight implements ThemeState {
@@ -63,4 +67,7 @@ class ThemeStateLight implements ThemeState {
 
   @override
   Color get selectedItemColour => const Color(0xFF0D47A1);
+
+  @override
+  String get loadingFiles => Res.loadingFilesLight;
 }

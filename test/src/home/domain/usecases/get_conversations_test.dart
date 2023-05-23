@@ -1,4 +1,4 @@
-import 'package:conversation_log/src/home/domain/entities/conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 import 'package:conversation_log/src/home/domain/repos/conversation_repository.dart';
 import 'package:conversation_log/src/home/domain/usecases/get_conversations.dart';
 import 'package:dartz/dartz.dart';
@@ -25,7 +25,7 @@ void main() {
 
       final result = await usecase();
 
-      expect(result, isA<Right<dynamic, List<Conversation>>>());
+      expect(result, isA<Right<dynamic, List<UserFilledConversation>>>());
 
       verify(() => repo.getConversations()).called(1);
 

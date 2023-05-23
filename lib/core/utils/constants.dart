@@ -1,9 +1,17 @@
 import 'package:conversation_log/core/common/settings/cubit/setting_cubit.dart';
+import 'package:conversation_log/core/utils/general_utils.dart';
+import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_window_close/flutter_window_close.dart';
 import 'package:menu_bar/menu_bar.dart';
 
 final kNavigatorKey = GlobalKey<NavigatorState>();
+const kApplicationName = 'Conversation Log';
+const kApplicationVersion = '1.0.0';
+const kApplicationIcon = FlutterLogo();
+
+const kConversationStoreKey = 'conversations';
 
 final kMenuButtons = [
   BarButton(
@@ -11,7 +19,9 @@ final kMenuButtons = [
     submenu: SubMenu(
       menuItems: [
         MenuButton(
-          onTap: () {},
+          onTap: kNavigatorKey.currentContext!
+              .read<HomeProvider>()
+              .saveConversations,
           text: const Text('Save'),
           shortcutText: 'Ctrl+S',
         ),
@@ -22,7 +32,13 @@ final kMenuButtons = [
         ),
         const MenuDivider(),
         MenuButton(
-          onTap: () {},
+          onTap: () async {
+            final provider = kNavigatorKey.currentContext!.read<HomeProvider>();
+            final result = await GeneralUtils.pickJsonFile();
+            if (result != null) {
+              provider.setConversationsFromFile(result);
+            }
+          },
           text: const Text('Open File'),
         ),
         MenuButton(
@@ -81,7 +97,9 @@ final kMenuButtons = [
         ),
         const MenuDivider(),
         MenuButton(
-          onTap: () {},
+          onTap: () {
+            FlutterWindowClose.closeWindow();
+          },
           shortcutText: 'Ctrl+Q',
           text: const Text('Exit'),
           icon: const Icon(Icons.exit_to_app),
@@ -131,6 +149,39 @@ final kMenuButtons = [
       ],
     ),
   ),
+  // View
+  BarButton(
+    text: const Text(
+      'View',
+      style: TextStyle(color: Colors.white),
+    ),
+    submenu: SubMenu(
+      menuItems: [
+        MenuButton(
+          text: const Text('View Type'),
+          submenu: SubMenu(
+            menuItems: [
+              MenuButton(
+                onTap: () {
+                  kNavigatorKey.currentContext!.read<HomeProvider>().viewType =
+                      ViewType.EXPORTED;
+                },
+                text: const Text('Imported Conversations'),
+              ),
+              MenuButton(
+                onTap: () {
+                  kNavigatorKey.currentContext!.read<HomeProvider>().viewType =
+                      ViewType.USER_FILLED;
+                },
+                text: const Text('Filled Conversations'),
+              ),
+            ],
+          ),
+          onTap: () {},
+        ),
+      ],
+    ),
+  ),
   BarButton(
     text: const Text(
       'Help',
@@ -144,12 +195,29 @@ final kMenuButtons = [
         ),
         const MenuDivider(),
         MenuButton(
-          onTap: () {},
+          onTap: () {
+            showLicensePage(
+              context: kNavigatorKey.currentContext!,
+              applicationName: kApplicationName,
+              applicationVersion: kApplicationVersion,
+              applicationIcon: kApplicationIcon,
+            );
+          },
           text: const Text('View License'),
         ),
         const MenuDivider(),
         MenuButton(
-          onTap: () {},
+          onTap: () {
+            showAboutDialog(
+              context: kNavigatorKey.currentContext!,
+              applicationName: kApplicationName,
+              applicationVersion: kApplicationVersion,
+              applicationIcon: kApplicationIcon,
+              children: const [
+                Text('This is a simple app to log your conversations.'),
+              ],
+            );
+          },
           icon: const Icon(Icons.info),
           text: const Text('About'),
         ),

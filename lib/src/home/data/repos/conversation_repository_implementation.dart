@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:conversation_log/core/common/errors/failures.dart';
 import 'package:conversation_log/core/utils/typedefs.dart';
 import 'package:conversation_log/src/home/data/models/conversation_model.dart';
-import 'package:conversation_log/src/home/domain/entities/conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 import 'package:conversation_log/src/home/domain/repos/conversation_repository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -17,14 +17,14 @@ class ConversationRepositoryImplementation implements ConversationRepository {
   DataMap get jsonData => jsonDecode(jsonFile.readAsStringSync()) as DataMap;
 
   @override
-  FunctionalFuture<List<Conversation>> getConversations() async {
+  FunctionalFuture<List<UserFilledConversation>> getConversations() async {
     try {
       final data = DataMap.from(jsonData);
       final files = Directory('database/collection')
           .listSync()
           .whereType<File>()
           .toList();
-      final conversations = <Conversation>[];
+      final conversations = <UserFilledConversation>[];
       for (final file in files) {
         final fileId = file.path.split('/').last.split('.').first;
         final fileData = data[fileId] as DataMap?;
@@ -43,7 +43,7 @@ class ConversationRepositoryImplementation implements ConversationRepository {
   }
 
   @override
-  FunctionalFuture<void> addConversation(Conversation conversation) async {
+  FunctionalFuture<void> addConversation(UserFilledConversation conversation) async {
     assert(conversation is ConversationModel, 'Invalid conversation type');
     try {
       final data = DataMap.from(jsonData);

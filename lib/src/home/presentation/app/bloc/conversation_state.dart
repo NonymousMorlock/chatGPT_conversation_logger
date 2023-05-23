@@ -18,7 +18,7 @@ class ConversationLoading extends ConversationState {
 
 class ConversationsLoaded extends ConversationState {
   const ConversationsLoaded(this.conversations);
-  final List<Conversation> conversations;
+  final List<UserFilledConversation> conversations;
   @override
   List<Object> get props => [conversations];
 }

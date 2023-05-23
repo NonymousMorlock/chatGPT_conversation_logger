@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:conversation_log/core/common/res/res.dart';
 import 'package:conversation_log/core/common/settings/application/setting_repository.dart';
 import 'package:flutter/material.dart';
 

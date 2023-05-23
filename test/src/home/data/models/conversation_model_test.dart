@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:conversation_log/core/utils/typedefs.dart';
 import 'package:conversation_log/src/home/data/models/conversation_model.dart';
-import 'package:conversation_log/src/home/domain/entities/conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -17,7 +17,7 @@ void main() {
   test(
     'should be a subclass of [Conversation] entity',
     () async {
-      expect(tConversationModel, isA<Conversation>());
+      expect(tConversationModel, isA<UserFilledConversation>());
     },
   );
 

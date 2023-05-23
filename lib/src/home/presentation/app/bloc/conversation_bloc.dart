@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:conversation_log/src/home/domain/entities/conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 import 'package:conversation_log/src/home/domain/usecases/add_conversation.dart';
 import 'package:conversation_log/src/home/domain/usecases/delete_conversation.dart';
 import 'package:conversation_log/src/home/domain/usecases/edit_conversation_title.dart';

@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:conversation_log/core/utils/typedefs.dart';
-import 'package:conversation_log/src/home/domain/entities/conversation.dart';
+import 'package:conversation_log/src/home/domain/entities/user_filled_conversation.dart';
 
-class ConversationModel extends Conversation {
+class ConversationModel extends UserFilledConversation {
   const ConversationModel({
     required super.id,
     required super.title,

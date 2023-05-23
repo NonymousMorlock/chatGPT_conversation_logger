@@ -75,12 +75,16 @@ Future<bool> showPlatformDialog({
   String? windowTitle,
   String? positiveButtonTitle,
   String? negativeButtonTitle,
+  bool noPositiveButton = false,
+  bool noNegativeButton = false,
 }) async {
   final result = await FlutterPlatformAlert.showCustomAlert(
     windowTitle: windowTitle ?? 'Are you sure?',
     text: text,
-    positiveButtonTitle: positiveButtonTitle ?? 'Continue',
-    negativeButtonTitle: negativeButtonTitle ?? 'Cancel',
+    positiveButtonTitle:
+        noPositiveButton ? null : positiveButtonTitle ?? 'Continue',
+    negativeButtonTitle:
+        noNegativeButton ? null : negativeButtonTitle ?? 'Cancel',
   );
   return result == CustomButton.positiveButton;
 }

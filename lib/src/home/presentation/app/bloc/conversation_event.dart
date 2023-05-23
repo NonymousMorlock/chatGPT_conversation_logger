@@ -14,7 +14,7 @@ class GetConversationsEvent extends ConversationEvent {
 class AddConversationEvent extends ConversationEvent {
   const AddConversationEvent(this.conversation);
 
-  final Conversation conversation;
+  final UserFilledConversation conversation;
 
   @override
   List<Object> get props => [conversation];
