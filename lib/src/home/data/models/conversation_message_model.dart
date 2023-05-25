@@ -66,8 +66,10 @@ class MessageModel extends Message {
       'id': id,
       'conversation_id': conversationId,
       'message': {
-        'create_time': timeCreated.millisecondsSinceEpoch,
-        'update_time': lastUpdateTime?.millisecondsSinceEpoch,
+        'create_time': timeCreated.millisecondsSinceEpoch / 1000,
+        'update_time': lastUpdateTime?.millisecondsSinceEpoch != null
+            ? lastUpdateTime!.millisecondsSinceEpoch / 1000
+            : null,
         'author': {'role': author},
         'content': {
           'content_type': 'text',
