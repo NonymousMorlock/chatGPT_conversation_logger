@@ -43,7 +43,9 @@ class ConversationRepositoryImplementation implements ConversationRepository {
   }
 
   @override
-  FunctionalFuture<void> addConversation(UserFilledConversation conversation) async {
+  FunctionalFuture<void> addConversation(
+    UserFilledConversation conversation,
+  ) async {
     assert(conversation is ConversationModel, 'Invalid conversation type');
     try {
       final data = DataMap.from(jsonData);
