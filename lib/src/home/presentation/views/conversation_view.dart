@@ -4,6 +4,7 @@ import 'package:conversation_log/src/home/presentation/views/exported_conversati
 import 'package:conversation_log/src/home/presentation/views/user_filled_conversation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:search_highlight_text/search_highlight_text.dart';
 
 class ConversationView extends StatelessWidget {
   const ConversationView({super.key});
@@ -12,9 +13,16 @@ class ConversationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (_, provider, __) {
-        return provider.currentConversation! is UserFilledConversation
-            ? const UserFilledConversationView()
-            : const ExportedConversationView();
+        return SearchTextInheritedWidget(
+          searchText: provider.searchController.text,
+          child: Builder(
+            builder: (_) {
+              return provider.currentConversation! is UserFilledConversation
+                  ? const UserFilledConversationView()
+                  : const ExportedConversationView();
+            },
+          ),
+        );
       },
     );
   }

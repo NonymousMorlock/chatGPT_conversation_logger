@@ -33,6 +33,7 @@ dependencies:
       url: https://github.com/google/flutter-desktop-embedding
       path: plugins/menubar
   provider: ^6.0.5
+  search_highlight_text: ^1.0.0+2
   shared_preferences: ^2.0.18
   window_manager: ^0.3.1
 
