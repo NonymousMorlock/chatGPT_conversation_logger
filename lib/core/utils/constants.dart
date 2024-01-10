@@ -48,7 +48,6 @@ final kMenuButtons = [
         const MenuDivider(),
         MenuButton(
           text: const Text('Preferences'),
-          onTap: () {},
           icon: const Icon(Icons.settings),
           submenu: SubMenu(
             menuItems: [
@@ -65,7 +64,6 @@ final kMenuButtons = [
               ),
               const MenuDivider(),
               MenuButton(
-                onTap: () {},
                 icon: const Icon(Icons.looks),
                 text: const Text('Change theme'),
                 submenu: SubMenu(
@@ -96,13 +94,11 @@ final kMenuButtons = [
           ),
         ),
         const MenuDivider(),
-        MenuButton(
-          onTap: () {
-            FlutterWindowClose.closeWindow();
-          },
+        const MenuButton(
+          onTap: FlutterWindowClose.closeWindow,
           shortcutText: 'Ctrl+Q',
-          text: const Text('Exit'),
-          icon: const Icon(Icons.exit_to_app),
+          text: Text('Exit'),
+          icon: Icon(Icons.exit_to_app),
         ),
       ],
     ),
@@ -177,7 +173,6 @@ final kMenuButtons = [
               ),
             ],
           ),
-          onTap: () {},
         ),
       ],
     ),
