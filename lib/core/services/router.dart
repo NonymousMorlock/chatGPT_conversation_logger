@@ -23,7 +23,7 @@ PageRouteBuilder<dynamic> _pageBuilder(
     transitionsBuilder: (_, a, __, child) {
       return FadeTransition(
         opacity: a,
-        child: MenuBar(
+        child: MenuBarWidget(
           barButtons: kMenuButtons,
           child: Column(
             children: [
