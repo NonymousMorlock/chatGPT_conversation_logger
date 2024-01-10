@@ -46,22 +46,22 @@ Future<void> init() async {
 
 Future<void> __init() async {
   // Blocs
-  sl..registerSingletonWithDependencies(
-        () => ThemeCubit(
-      isDarkMode: sl<ISettingRepository>().getDarkModeSetting(),
-    )..initialize(sl<ISettingRepository>().getDarkModeSetting()),
-    dependsOn: [ISettingRepository],
-  )
+  sl
+    ..registerSingletonWithDependencies(
+      () => ThemeCubit(
+        isDarkMode: sl<ISettingRepository>().getDarkModeSetting(),
+      )..initialize(sl<ISettingRepository>().getDarkModeSetting()),
+      dependsOn: [ISettingRepository],
+    )
+    ..registerFactory(
+      () => SettingCubit(
+        settingRep: sl(),
+        themeCubit: sl(),
+      )..initialize(),
+    )
 
-  ..registerFactory(
-        () => SettingCubit(
-      settingRep: sl(),
-      themeCubit: sl(),
-    )..initialize(),
-  )
-
-  // Repositories
-  ..registerLazySingleton<ISettingRepository>(SettingRepository.new);
+    // Repositories
+    ..registerLazySingleton<ISettingRepository>(SettingRepository.new);
 
   // Services
 
@@ -71,7 +71,6 @@ Future<void> __init() async {
 
   await conversationInit();
 }
-
 
 Future<void> conversationInit() async {
   sl

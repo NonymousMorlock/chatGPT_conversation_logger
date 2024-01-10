@@ -91,7 +91,7 @@ class _LogViewState extends State<LogView> {
                         ),
                       ],
                     ),
-                  ]
+                  ],
                 ],
               ),
             );

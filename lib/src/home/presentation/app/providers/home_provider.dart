@@ -362,6 +362,7 @@ class HomeProvider extends ChangeNotifier {
     _height = 387.870361328125;
     notifyListeners();
   }
+
   @override
   void dispose() {
     _controller?.dispose();

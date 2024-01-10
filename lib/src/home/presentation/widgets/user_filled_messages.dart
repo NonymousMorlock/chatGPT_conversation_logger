@@ -94,9 +94,8 @@ class _UserFilledMessagesState extends State<UserFilledMessages> {
                           text: 'You have unsaved messages',
                         )) {
                           provider
-                              ..viewConversation(conversation)
-
-                          ..resetInputs();
+                            ..viewConversation(conversation)
+                            ..resetInputs();
                         } else {
                           return;
                         }

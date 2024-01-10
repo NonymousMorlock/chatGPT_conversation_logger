@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-
   factory ThemeCubit({required Future<bool> isDarkMode}) {
     _instance ??= ThemeCubit._(isDarkMode: isDarkMode);
     return _instance!;
@@ -20,7 +19,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   Future<void> initialize(Future<bool> isDarkMode) async {
     await isDarkMode.then(
-          (data) {
+      (data) {
         emit(
           data ? const ThemeStateDark() : const ThemeStateLight(),
         );

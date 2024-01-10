@@ -1,7 +1,6 @@
 import 'package:conversation_log/core/common/theme/cubit/theme_cubit.dart';
 import 'package:conversation_log/core/extensions/date_extensions.dart';
 import 'package:conversation_log/core/utils/functions.dart';
-import 'package:conversation_log/src/home/presentation/app/bloc/conversation_bloc.dart';
 import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:conversation_log/src/home/presentation/widgets/side_rail_tile.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +74,6 @@ class _LoggedMessagesState extends State<LoggedMessages> {
                             )) {
                               provider
                                 ..viewConversation(conversation)
-
                                 ..resetInputs();
                             } else {
                               return;
