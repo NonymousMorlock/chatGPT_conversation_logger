@@ -23,14 +23,17 @@ PageRouteBuilder<dynamic> _pageBuilder(
     transitionsBuilder: (_, a, __, child) {
       return FadeTransition(
         opacity: a,
-        child: MenuBarWidget(
-          barButtons: kMenuButtons,
-          child: Column(
-            children: [
-              const SearchView(),
-              const SizedBox(height: 10),
-              Expanded(child: child),
-            ],
+        child: Material(
+          child: MenuBarWidget(
+            barButtons: kMenuButtons,
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                const SearchView(),
+                const SizedBox(height: 10),
+                Expanded(child: child),
+              ],
+            ),
           ),
         ),
       );
