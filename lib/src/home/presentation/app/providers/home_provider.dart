@@ -86,7 +86,9 @@ class HomeProvider extends ChangeNotifier {
 
   String title = '';
 
-  String hint = 'Enter Title';
+  String _hint = 'Enter Title';
+
+  String get hint => _hint;
 
   String? _editTitle;
 
@@ -325,7 +327,7 @@ class HomeProvider extends ChangeNotifier {
   void setTitle(String title) {
     this.title = title;
     enterTitle = false;
-    hint = 'Enter Message';
+    _hint = 'Enter Message';
     resetFieldSize();
   }
 
@@ -338,7 +340,7 @@ class HomeProvider extends ChangeNotifier {
     enterTitle = true;
     _width = 400;
     _height = 70;
-    hint = 'Enter Title';
+    _hint = 'Enter Title';
     if (listen) notifyListeners();
   }
 
