@@ -26,8 +26,9 @@ class ExportedConversationView extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Chip(
+                    RawChip(
                       backgroundColor: themeState.accentColor,
+                      side: const BorderSide(color: Colors.grey),
                       label: Text(
                         message.author == 'user'
                             ? 'ME'
