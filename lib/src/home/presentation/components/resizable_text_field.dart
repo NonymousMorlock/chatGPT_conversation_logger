@@ -38,6 +38,9 @@ class _ResizableTextFieldState extends State<ResizableTextField> {
                     maxLength: TextField.noMaxLength,
                     decoration: InputDecoration(
                       hintText: provider.hint,
+                      hintStyle: TextStyle(color: state.primaryTextColor),
+                      counterStyle: TextStyle(color: state.primaryTextColor),
+                      contentPadding: const EdgeInsets.all(16),
                       border: const OutlineInputBorder(),
                     ),
                   );
