@@ -1,4 +1,5 @@
 import 'package:conversation_log/core/common/settings/cubit/setting_cubit.dart';
+import 'package:conversation_log/core/common/theme/cubit/theme_cubit.dart';
 import 'package:conversation_log/core/utils/general_utils.dart';
 import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ const kConversationStoreKey = 'conversations';
 
 final kMenuButtons = [
   BarButton(
-    text: const Text('File', style: TextStyle(color: Colors.white)),
+    text: const Text('File'),
     submenu: SubMenu(
       menuItems: [
         MenuButton(
@@ -104,10 +105,7 @@ final kMenuButtons = [
     ),
   ),
   BarButton(
-    text: const Text(
-      'Edit',
-      style: TextStyle(color: Colors.white),
-    ),
+    text: const Text('Edit'),
     submenu: SubMenu(
       menuItems: [
         MenuButton(
@@ -147,10 +145,7 @@ final kMenuButtons = [
   ),
   // View
   BarButton(
-    text: const Text(
-      'View',
-      style: TextStyle(color: Colors.white),
-    ),
+    text: const Text('View'),
     submenu: SubMenu(
       menuItems: [
         MenuButton(
@@ -178,10 +173,7 @@ final kMenuButtons = [
     ),
   ),
   BarButton(
-    text: const Text(
-      'Help',
-      style: TextStyle(color: Colors.white),
-    ),
+    text: const Text('Help'),
     submenu: SubMenu(
       menuItems: [
         MenuButton(
