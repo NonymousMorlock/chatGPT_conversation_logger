@@ -1,5 +1,6 @@
 import 'package:conversation_log/core/common/features/search/presentation/views/search_view.dart';
 import 'package:conversation_log/core/common/theme/theme.dart';
+import 'package:conversation_log/core/common/widgets/drop_zone.dart';
 import 'package:conversation_log/core/utils/constants.dart';
 import 'package:conversation_log/src/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart' hide MenuBar;
@@ -29,24 +30,26 @@ PageRouteBuilder<dynamic> _pageBuilder(
           builder: (context, state) {
             debugPrint(state.primaryTextColor.toString());
             return Material(
-              child: MenuBarWidget(
-                barButtonStyle: ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(
-                    state.primaryTextColor,
+              child: DropZone(
+                child: MenuBarWidget(
+                  barButtonStyle: ButtonStyle(
+                    foregroundColor: MaterialStatePropertyAll(
+                      state.primaryTextColor,
+                    ),
                   ),
-                ),
-                barStyle: MenuStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(state.backgroundColor),
-                ),
-                barButtons: kMenuButtons,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    const SearchView(),
-                    const SizedBox(height: 10),
-                    Expanded(child: child),
-                  ],
+                  barStyle: MenuStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll(state.backgroundColor),
+                  ),
+                  barButtons: kMenuButtons,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      const SearchView(),
+                      const SizedBox(height: 10),
+                      Expanded(child: child),
+                    ],
+                  ),
                 ),
               ),
             );
