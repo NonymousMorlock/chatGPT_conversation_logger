@@ -1,5 +1,4 @@
 import 'package:conversation_log/core/common/settings/cubit/setting_cubit.dart';
-import 'package:conversation_log/core/common/theme/cubit/theme_cubit.dart';
 import 'package:conversation_log/core/utils/general_utils.dart';
 import 'package:conversation_log/src/home/presentation/app/providers/home_provider.dart';
 import 'package:flutter/material.dart';
