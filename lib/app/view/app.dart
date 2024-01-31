@@ -1,3 +1,4 @@
+import 'package:conversation_log/core/common/app/drop_controller.dart';
 import 'package:conversation_log/core/common/settings/cubit/setting_cubit.dart';
 import 'package:conversation_log/core/common/settings/domain/i_setting_repository.dart';
 import 'package:conversation_log/core/common/theme/cubit/theme_cubit.dart';
@@ -24,6 +25,7 @@ class App extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => HomeProvider(sl<SharedPreferences>()),
           ),
+          ChangeNotifierProvider(create: (_) => DropController()),
         ],
         child: MultiBlocProvider(
           providers: [
