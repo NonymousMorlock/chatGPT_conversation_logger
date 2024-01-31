@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:conversation_log/core/extensions/date_extensions.dart';
 import 'package:conversation_log/core/utils/constants.dart';
 import 'package:conversation_log/core/utils/functions.dart';
@@ -136,11 +137,23 @@ class HomeProvider extends ChangeNotifier {
       );
       return;
     }
+    final storedConversations = _prefs.getStringList(kConversationStoreKey);
+    final serializedConversations = _exportedConversations
+        .map((e) => (e as ExportedConversationModel).toJson())
+        .toList();
+    if (storedConversations case List<String>()
+        when storedConversations.equals(serializedConversations)) {
+      await showPlatformDialog(
+        windowTitle: 'Conversations Already Exist',
+        text: 'You have already saved these conversations.',
+        noNegativeButton: true,
+        positiveButtonTitle: 'Ok',
+      );
+      return;
+    }
     await _prefs.setStringList(
       kConversationStoreKey,
-      _exportedConversations
-          .map((e) => (e as ExportedConversationModel).toJson())
-          .toList(),
+      serializedConversations,
     );
     await showPlatformDialog(
       windowTitle: 'Saved',
@@ -171,20 +184,34 @@ class HomeProvider extends ChangeNotifier {
     setConversationsFromFile(file);
   }
 
-  void setConversationsFromFile(File file) {
-    _initializing = true;
-    notifyListeners();
-    if (file.existsSync()) {
-      final data = List<DataMap>.from(
-        jsonDecode(file.readAsStringSync()) as List<dynamic>,
+  bool setConversationsFromFile(File file) {
+    try {
+      _initializing = true;
+      notifyListeners();
+      if (file.existsSync()) {
+        final data = List<DataMap>.from(
+          jsonDecode(file.readAsStringSync()) as List<dynamic>,
+        );
+        _exportedConversations =
+            data.map(ExportedConversationModel.fromMap).toList();
+        _exportedSearchResults = _exportedConversations;
+        _viewType = ViewType.EXPORTED;
+        notifyListeners();
+        return true;
+      }
+      return false;
+    } catch (_) {
+      showPlatformDialog(
+        windowTitle: 'Error',
+        text: 'This file does not contain conversations. Please check'
+            ' this file',
+        noNegativeButton: true,
+        positiveButtonTitle: 'Ok',
       );
-      _exportedConversations =
-          data.map(ExportedConversationModel.fromMap).toList();
-      _exportedSearchResults = _exportedConversations;
+      return false;
+    } finally {
+      _initializing = false;
     }
-    _initializing = false;
-    _viewType = ViewType.EXPORTED;
-    notifyListeners();
   }
 
   set conversations(List<UserFilledConversation> conversations) {
