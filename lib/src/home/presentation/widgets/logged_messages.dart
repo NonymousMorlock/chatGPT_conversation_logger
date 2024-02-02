@@ -56,6 +56,7 @@ class _LoggedMessagesState extends State<LoggedMessages> {
                           ? themeState.selectedItemColour
                           : themeState.sideRailColour,
                       child: SideRailTile(
+                        titleText: conversation.title,
                         title: Text(
                           conversation.title,
                           maxLines: 1,

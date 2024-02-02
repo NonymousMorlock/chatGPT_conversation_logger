@@ -34,6 +34,7 @@ class _UserFilledMessagesState extends State<UserFilledMessages> {
                       ? themeState.selectedItemColour
                       : themeState.sideRailColour,
                   child: SideRailTile(
+                    titleText: conversation.title,
                     title: provider.editTitle == conversation.id
                         ? Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
