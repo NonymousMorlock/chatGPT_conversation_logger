@@ -227,22 +227,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_markdown:
-    dependency: "direct main"
-    description:
-      name: flutter_markdown
-      sha256: "30088ce826b5b9cfbf9e8bece34c716c8a59fa54461dcae1e4ac01a94639e762"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.18+3"
   flutter_platform_alert:
     dependency: "direct main"
     description:
       name: flutter_platform_alert
-      sha256: "49175cf8f5d2bd3bced84465046aeadb031c74b9cb50820bf5c7e9db5c35a1a9"
+      sha256: "7e4b6fa8bf407522bf4ee1c245129c9974359833867c28826d1b2604bb3c2806"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.5.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -366,7 +358,7 @@ packages:
     source: hosted
     version: "2.7.0"
   markdown:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: markdown
       sha256: "1b134d9f8ff2da15cb298efe6cd8b7d2a78958c1b00384ebcbdf13fe340a6c90"
