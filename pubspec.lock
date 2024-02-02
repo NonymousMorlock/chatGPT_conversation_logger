@@ -129,14 +129,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  dart_markdown:
-    dependency: transitive
-    description:
-      name: dart_markdown
-      sha256: b9b7e13733dd418bc83e6f4e68d79caebab6cd3a8b301e91d1bfd6ef5ef8e993
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.7"
   dart_prism:
     dependency: transitive
     description:
@@ -235,6 +227,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_markdown:
+    dependency: "direct main"
+    description:
+      name: flutter_markdown
+      sha256: "30088ce826b5b9cfbf9e8bece34c716c8a59fa54461dcae1e4ac01a94639e762"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.18+3"
   flutter_platform_alert:
     dependency: "direct main"
     description:
@@ -366,13 +366,13 @@ packages:
     source: hosted
     version: "2.7.0"
   markdown:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: markdown
-      sha256: acf35edccc0463a9d7384e437c015a3535772e09714cf60e07eeef3a15870dcd
+      sha256: "1b134d9f8ff2da15cb298efe6cd8b7d2a78958c1b00384ebcbdf13fe340a6c90"
       url: "https://pub.dev"
     source: hosted
-    version: "7.1.1"
+    version: "7.2.1"
   markdown_toolbar:
     dependency: "direct main"
     description:
@@ -381,14 +381,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.3"
-  markdown_viewer:
-    dependency: "direct main"
-    description:
-      name: markdown_viewer
-      sha256: "20ba66becfb4aec6e39b1eef07c53463c96ecf315d7da4e7ad960796f866cb45"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
   markdown_widget:
     dependency: "direct main"
     description:
