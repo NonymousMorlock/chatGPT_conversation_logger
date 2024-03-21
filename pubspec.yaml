@@ -22,8 +22,8 @@ dependencies:
 #  flutter_markdown: ^0.6.18+3
   flutter_platform_alert: ^0.5.1
   flutter_prism: ^0.2.2
+  get_it: ^7.6.7
   flutter_window_close: ^1.0.0
-  get_it: ^7.2.0
   intl: ^0.18.0
 #  markdown_editor_plus: ^0.2.13
   lottie: ^2.3.2
