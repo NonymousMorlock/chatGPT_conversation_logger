@@ -26,7 +26,7 @@ dependencies:
   flutter_window_close: ^1.0.0
   intl: ^0.18.0
 #  markdown_editor_plus: ^0.2.13
-  lottie: ^2.3.2
+  lottie: ^3.1.0
 #  markdown: ^7.2.1
   markdown_toolbar: ^0.3.2
 #  markdown_viewer: ^0.5.0
