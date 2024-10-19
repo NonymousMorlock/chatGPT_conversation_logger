@@ -37,6 +37,8 @@ class App extends StatelessWidget {
             builder: (context, theme) {
               return MaterialApp(
                 navigatorKey: kNavigatorKey,
+                themeMode:
+                    theme is DarkTheme ? ThemeMode.dark : ThemeMode.light,
                 theme: ThemeData(
                   scaffoldBackgroundColor: theme.backgroundColor,
                   appBarTheme: AppBarTheme(color: theme.appBarColor),
