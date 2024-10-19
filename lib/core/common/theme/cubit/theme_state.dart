@@ -12,8 +12,8 @@ abstract class ThemeState {
   String get loadingFiles;
 }
 
-class ThemeStateDark implements ThemeState {
-  const ThemeStateDark();
+class DarkTheme implements ThemeState {
+  const DarkTheme();
   @override
   Color get backgroundColor => const Color(0xFF202123);
 
@@ -42,8 +42,8 @@ class ThemeStateDark implements ThemeState {
   String get loadingFiles => Res.loadingFilesDark;
 }
 
-class ThemeStateLight implements ThemeState {
-  const ThemeStateLight();
+class LightTheme implements ThemeState {
+  const LightTheme();
   @override
   Color get backgroundColor => const Color(0xFFFFFFFF);
 
