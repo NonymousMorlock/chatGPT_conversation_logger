@@ -17,6 +17,12 @@ class SearchView extends StatelessWidget {
           builder: (context, state) {
             return SearchBar(
               controller: provider.searchController,
+              backgroundColor: state is LightTheme
+                  ? null
+                  : WidgetStatePropertyAll(state.sideRailColour),
+              textStyle: WidgetStatePropertyAll(
+                TextStyle(color: state.primaryTextColor),
+              ),
               onTap: () {
                 if (provider.searchController.text.isNotEmpty &&
                     provider.lastPickedDate != null &&
