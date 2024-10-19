@@ -7,39 +7,47 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  bloc: ^8.1.4
-  bot_toast: ^4.0.3
-  collection: ^1.18.0
-  dartz: ^0.10.1
-  desktop_drop: ^0.4.4
-  equatable: ^2.0.5
-  file_picker: ^8.0.0+1
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.5
   flutter_localizations:
     sdk: flutter
-#  flutter_markdown: ^0.6.18+3
-  flutter_platform_alert: ^0.5.1
-  flutter_prism: ^0.2.2
-  get_it: ^7.6.7
-  flutter_window_close: ^1.0.0
   intl: ^0.19.0
+#  flutter_markdown: ^0.7.4
 #  markdown_editor_plus: ^0.2.13
-  lottie: ^3.1.0
 #  markdown: ^7.2.1
-  markdown_toolbar: ^0.3.2
 #  markdown_viewer: ^0.5.0
-  markdown_widget: ^2.0.0+1
-  menu_bar: ^0.5.2
+#  markdown_widget: ^2.0.0+1
   menubar:
     git:
       url: https://github.com/google/flutter-desktop-embedding
       path: plugins/menubar
-  provider: ^6.0.5
+  file_picker: ^8.1.2
+  shared_preferences: ^2.3.2
+  flutter_platform_alert: ^0.6.1
+  flutter_prism: ^0.2.2
+  flutter_window_close: ^1.2.0
+  get_it: ^8.0.0
+  bot_toast: ^4.1.3
+  collection: ^1.18.0
+  dartz: ^0.10.1
+  desktop_drop: ^0.5.0
+  equatable: ^2.0.5
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
+  lottie: ^3.1.3
+  markdown_toolbar: ^0.5.0
+  menu_bar: ^0.5.3
+  provider: ^6.1.2
   search_highlight_text: ^1.0.0+2
-  shared_preferences: ^2.0.18
-  window_manager: ^0.3.8
+  window_manager: ^0.4.2
+  markdown_widget: ^2.3.2+6
+  flutter_math_fork: ^0.7.2
+  markdown: ^7.2.2
+  flutter_widget_from_html_core: ^0.15.2
+  html: ^0.15.4
+
+dependency_overrides:
+  archive: ^3.6.1
 
 dev_dependencies:
   bloc_test: ^9.1.1
