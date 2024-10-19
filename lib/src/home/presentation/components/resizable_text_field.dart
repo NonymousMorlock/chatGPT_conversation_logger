@@ -28,7 +28,7 @@ class _ResizableTextFieldState extends State<ResizableTextField> {
                 builder: (context, state) {
                   return TextField(
                     textAlignVertical: TextAlignVertical.top,
-                    style: state is ThemeStateDark
+                    style: state is DarkTheme
                         ? const TextStyle(color: Colors.white)
                         : null,
                     controller: provider.controller,
