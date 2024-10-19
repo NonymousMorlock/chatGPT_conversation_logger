@@ -11,8 +11,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     return _instance!;
   }
 
-  ThemeCubit._({required Future<bool> isDarkMode})
-      : super(const ThemeStateDark()) {
+  ThemeCubit._({required Future<bool> isDarkMode}) : super(const DarkTheme()) {
     initialize(isDarkMode);
   }
   static ThemeCubit? _instance;
@@ -21,7 +20,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     await isDarkMode.then(
       (data) {
         emit(
-          data ? const ThemeStateDark() : const ThemeStateLight(),
+          data ? const DarkTheme() : const LightTheme(),
         );
       },
     );
@@ -29,11 +28,11 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   Future<void> getThemeDark() async {
     await SettingRepository().setDarkModeSetting(value: true);
-    emit(const ThemeStateDark());
+    emit(const DarkTheme());
   }
 
   Future<void> getThemeLight() async {
     await SettingRepository().setDarkModeSetting(value: false);
-    emit(const ThemeStateLight());
+    emit(const LightTheme());
   }
 }
