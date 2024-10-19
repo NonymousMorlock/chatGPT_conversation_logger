@@ -30,16 +30,17 @@ PageRouteBuilder<dynamic> _pageBuilder(
           builder: (context, state) {
             debugPrint(state.primaryTextColor.toString());
             return Material(
+              color: state.backgroundColor,
               child: DropZone(
                 child: MenuBarWidget(
                   barButtonStyle: ButtonStyle(
-                    foregroundColor: MaterialStatePropertyAll(
+                    foregroundColor: WidgetStatePropertyAll(
                       state.primaryTextColor,
                     ),
                   ),
                   barStyle: MenuStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(state.backgroundColor),
+                        WidgetStatePropertyAll(state.backgroundColor),
                   ),
                   barButtons: kMenuButtons,
                   child: Column(
