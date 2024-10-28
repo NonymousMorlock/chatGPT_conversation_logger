@@ -39,7 +39,7 @@ dependencies:
   menu_bar: ^0.5.3
   provider: ^6.1.2
   search_highlight_text: ^1.0.0+2
-  window_manager: ^0.4.2
+  window_manager: ^0.4.3
   markdown_widget: ^2.3.2+6
   flutter_math_fork: ^0.7.2
   markdown: ^7.2.2
