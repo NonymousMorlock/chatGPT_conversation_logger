@@ -26,7 +26,7 @@ dependencies:
   flutter_platform_alert: ^0.6.1
   flutter_prism: ^0.2.2
   flutter_window_close: ^1.2.0
-  get_it: ^8.0.2
+  get_it: ^8.0.3
   bot_toast: ^4.1.3
   collection: ^1.19.0
   dartz: ^0.10.1
