@@ -7,7 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_platform_alert
   flutter_window_close
   menubar
-  screen_retriever
+  screen_retriever_linux
   url_launcher_linux
   window_manager
 )
