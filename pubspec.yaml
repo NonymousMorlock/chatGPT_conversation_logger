@@ -23,7 +23,7 @@ dependencies:
       path: plugins/menubar
   file_picker: ^9.0.0
   shared_preferences: ^2.5.2
-  flutter_platform_alert: ^0.6.1
+  flutter_platform_alert: ^0.7.0
   flutter_prism: ^0.2.2
   flutter_window_close: ^1.2.0
   get_it: ^8.0.3
