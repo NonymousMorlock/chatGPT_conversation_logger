@@ -37,7 +37,7 @@ dependencies:
   lottie: ^3.3.1
   markdown_toolbar: ^0.5.0
   menu_bar: ^0.5.3
-  provider: ^6.1.4
+  provider: ^6.1.5
   search_highlight_text: ^1.0.0+2
   window_manager: ^0.4.3
   markdown_widget: ^2.3.2+6
