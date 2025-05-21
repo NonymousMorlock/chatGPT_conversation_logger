@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.20.2
 #  flutter_markdown: ^0.7.4
 #  markdown_editor_plus: ^0.2.13
 #  markdown: ^7.2.1
