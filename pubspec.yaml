@@ -21,7 +21,7 @@ dependencies:
     git:
       url: https://github.com/google/flutter-desktop-embedding
       path: plugins/menubar
-  file_picker: ^10.3.7
+  file_picker: ^10.3.8
   shared_preferences: ^2.5.4
   flutter_platform_alert: ^0.8.0
   flutter_prism: ^0.2.2
