@@ -31,7 +31,7 @@ dependencies:
   collection: ^1.19.1
   dartz: ^0.10.1
   desktop_drop: ^0.7.1
-  equatable: ^2.0.8
+  equatable: ^2.1.0
   bloc: ^9.2.1
   flutter_bloc: ^9.1.1
   lottie: ^3.4.0
