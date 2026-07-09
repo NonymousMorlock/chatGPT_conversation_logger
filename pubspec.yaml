@@ -34,7 +34,7 @@ dependencies:
   equatable: ^2.1.0
   bloc: ^9.2.1
   flutter_bloc: ^9.1.1
-  lottie: ^3.5.0
+  lottie: ^3.5.1
   markdown_toolbar: ^0.5.0
   menu_bar: ^0.5.3
   provider: ^6.1.5
